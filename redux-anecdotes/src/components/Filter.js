@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { connect } from 'react-redux';
 import { setFilter } from '../reducers/filterReducer';
 
-const Filter = () => {
-  const dispatch = useDispatch();
+const Filter = (props) => {
   const [filter, setFilterValue] = useState('');
-  useEffect(() => {
-    dispatch(setFilter(filter));
-  }, [dispatch, filter]);
+  const handleChange = (target) => {
+    setFilterValue(target.value);
+    props.setFilter(target.value);
+  };
   return (
     <div style={{ marginBottom: 10 }}>
       <label htmlFor='filter-input'>Filter</label>
@@ -15,10 +15,12 @@ const Filter = () => {
         id='filter-input'
         type='text'
         value={filter}
-        onChange={({ target }) => setFilterValue(target.value)}
+        onChange={({ target }) => handleChange(target)}
       />
     </div>
   );
 };
 
-export default Filter;
+const mapDispatch = { setFilter };
+const ConnectedFilter = connect(null, mapDispatch)(Filter);
+export default ConnectedFilter;

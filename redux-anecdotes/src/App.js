@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { initializeAnecdotes } from './reducers/anecdoteReducer';
 
 const App = () => {
-  const notification = useSelector(state => state.notification);
+  const notification = useSelector(state => state.notification.content);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(initializeAnecdotes());
